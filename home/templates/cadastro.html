@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - Controle de Estoque</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+      .main-content {
+        background-color: #333;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        width: 100%;
+        max-width: 500px;
+        text-align: left;
+      }
+      h1 {
+        color: #ff8c00;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+      form {
+        margin-top: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #f0f0f0;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #555;
+        border-radius: 6px;
+        background-color: #444;
+        color: #f0f0f0;
+        font-size: 1em;
+      }
+      button[type="submit"] {
+        background-color: #ff8c00;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.1em;
+        width: 100%;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin-top: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+      button[type="submit"]:hover {
+        background-color: #e07b00;
+        transform: translateY(-1px);
+      }
+      .messages {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+      }
+      .messages li {
+        padding: 10px;
+        margin: 5px auto;
+        border-radius: 4px;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      .messages .error {
+        background-color: #f44336;
+        color: white;
+      }
+      p {
+        margin-top: 25px;
+        color: #ccc;
+        font-size: 1em;
+        text-align: center;
+      }
+      p a {
+        color: #ff8c00;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      p a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 2em;
+        }
+        .main-content {
+          padding: 20px 15px;
+        }
+        button[type="submit"] {
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="main-content">
+      <h1>Crie a conta da sua Empresa:</h1>
+
+      <form action="{% url 'cadastro' %}" method="post">
+        {% csrf_token %}
+
+        <label for="nome_empresa">Nome da Empresa:</label>
+        <input type="text" id="nome_empresa" name="nome_empresa" required />
+
+        <label for="nome_admin">Seu Nome (Administrador Principal):</label>
+        <input type="text" id="nome_admin" name="nome_admin" required />
+
+        <label for="email">Seu Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="login"
+          >Seu Login de Acesso (Administrador Principal):</label
+        >
+        <input type="text" id="login" name="login" required />
+
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required />
+
+        <label for="confirmar_senha">Confirmar Senha:</label>
+        <input
+          type="password"
+          id="confirmar_senha"
+          name="confirmar_senha"
+          required
+        />
+
+        <button type="submit">Cadastrar Empresa</button>
+      </form>
+
+      <p>Já tem uma conta? <a href="{% url 'login' %}">Fazer Login</a></p>
+    </div>
+  </body>
+</html>

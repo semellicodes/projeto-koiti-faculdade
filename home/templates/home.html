@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bem-vindo ao CONTROLSTOQUE!</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+      .main-content {
+        background-color: #333;
+        padding: 40px 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        max-width: 700px;
+        width: 100%;
+        margin-bottom: 30px;
+      }
+      h1 {
+        color: #ff8c00;
+        font-size: 3em;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      p {
+        color: #ccc;
+        font-size: 1.2em;
+        margin-bottom: 30px;
+      }
+      .main-button {
+        display: inline-block;
+        background-color: #4caf50;
+        color: white;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 1.5em;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        margin-top: 20px;
+      }
+      .main-button:hover {
+        background-color: #45a049;
+        transform: translateY(-2px);
+      }
+      .login-link {
+        display: block;
+        margin-top: 20px;
+        font-size: 1.1em;
+      }
+      .login-link a {
+        color: #ff8c00;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2em;
+        }
+        p {
+          font-size: 1em;
+        }
+        .main-button {
+          font-size: 1.2em;
+          padding: 12px 20px;
+        }
+        .main-content {
+          padding: 25px 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.6em;
+        }
+        .main-button {
+          font-size: 1em;
+          padding: 10px 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-content">
+      <h1>Bem-vindo ao CONTROLSTOQUE!</h1>
+      <p>Seu controle de estoque inteligente e simplificado.</p>
+      <a href="{% url 'cadastro' %}" class="main-button">Criar Cadastro</a>
+    </div>
+
+    <div class="login-link">
+      <p>Já tem uma conta? <a href="{% url 'login' %}">Faça Login</a></p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Usuários - {{ usuario.empresa.nome }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #ff8c00;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 12px;
+            text-align: left;
+            color: #f0f0f0;
+        }
+        th {
+            background-color: #555;
+            color: white;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #3a3a3a;
+        }
+        .button {
+            display: inline-block;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .button:hover {
+            transform: translateY(-1px);
+        }
+        .button-add {
+            background-color: #4CAF50;
+        }
+        .button-add:hover {
+            background-color: #45a049;
+        }
+        .button-back {
+            background-color: #e07b00;
+        }
+        .button-back:hover {
+            background-color: #d87100;
+        }
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 600px;
+        }
+        .messages li.success {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .actions-container a {
+            color: white;
+            text-decoration: none;
+            margin-right: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease;
+        }
+        .action-edit, .action-delete {
+            background-color: #ff8c00;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        .action-edit:hover, .action-delete:hover {
+            background-color: #e07b00;
+            text-decoration: none;
+        }
+        .button-group {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button-group .button {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                margin: 10px;
+            }
+            .button-group {
+                text-align: left;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .button-group .button {
+                flex: 1;
+                margin: 0;
+            }
+            h1 {
+                text-align: center;
+            }
+            
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead {
+                display: none;
+            }
+            tr {
+                border: 1px solid #555;
+                border-radius: 8px;
+                margin-bottom: 15px;
+            }
+            td {
+                border: none;
+                border-bottom: 1px solid #444;
+                position: relative;
+                padding-left: 50%;
+                text-align: left;
+            }
+            td:last-child {
+                border-bottom: none;
+            }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                width: 45%;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #ddd;
+            }
+            td:last-of-type {
+                text-align: center;
+                padding-left: 12px;
+                padding-top: 15px;
+            }
+            td:last-of-type::before {
+                display: none;
+            }
+            td a {
+                display: inline-block;
+                margin: 5px;
+                padding: 8px 12px;
+                border-radius: 5px;
+                background-color: #ff8c00;
+                color: white;
+            }
+            td a:hover {
+                background-color: #e07b00;
+                text-decoration: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h1>Usuários da Empresa: {{ usuario.empresa.nome }}</h1>
+
+    <div class="button-group">
+        <a href="{% url 'adicionar_usuario' %}" class="button button-add">Adicionar Novo Usuário</a>
+        <a href="{% url 'lista_produtos' %}" class="button button-back">Voltar para Produtos</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Login</th>
+                <th>Admin</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in usuarios %}
+            <tr>
+                <td data-label="Nome">{{ u.nome }}</td>
+                <td data-label="Email">{{ u.email }}</td>
+                <td data-label="Login">{{ u.login }}</td>
+                <td data-label="Admin">
+                    {% if u.is_admin %}
+                        <strong>Sim</strong>
+                        {% if u == primeiro_admin %}
+                            (Principal)
+                        {% endif %}
+                    {% else %}
+                        Não
+                    {% endif %}
+                </td>
+                <td data-label="Ações">
+                    {% if u == usuario %}
+                        (Você)
+                    {% elif u == primeiro_admin %}
+                        -
+                    {% else %}
+                        <a href="{% url 'editar_usuario' u.pk %}" class="action-edit">Editar</a>
+                        <a href="{% url 'excluir_usuario' u.pk %}" class="action-delete">Excluir</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

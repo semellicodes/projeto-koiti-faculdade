@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Exclusão</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; color: #f0f0f0; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; flex-direction: column; text-align: center; }
+        .main-content { background-color: #333; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); width: 100%; max-width: 500px; text-align: center; }
+        h1 { color: #dc3545; }
+        p { margin-bottom: 25px; font-size: 1.1em; color: #ccc; }
+        strong { color: #ff8c00; }
+        .actions { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .delete-button { background-color: #dc3545; color: white; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 1.1em; }
+        .cancel-button { background-color: #6c757d; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h1>Confirmar Exclusão de Usuário</h1>
+        <p>Você tem certeza que deseja excluir o usuário "<strong>{{ usuario_a_excluir.nome }}</strong>"?</p>
+        <p>Esta ação não pode ser desfeita.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="actions">
+                <button type="submit" class="delete-button">Confirmar Exclusão</button>
+                <a href="{% url 'lista_usuarios' %}" class="cancel-button">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

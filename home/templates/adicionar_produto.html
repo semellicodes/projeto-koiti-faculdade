@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adicionar Novo Produto</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+      .main-content {
+        background-color: #333;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        width: 100%;
+        max-width: 500px;
+        text-align: left;
+      }
+      h1 {
+        color: #ff8c00;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+      form {
+        margin-top: 20px;
+      }
+      .form-field {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #f0f0f0;
+      }
+      input[type="text"],
+      input[type="number"],
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        border: 1px solid #555;
+        border-radius: 6px;
+        background-color: #444;
+        color: #f0f0f0;
+        font-size: 1em;
+      }
+      button[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.1em;
+        width: 100%;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin-top: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+      button[type="submit"]:hover {
+        background-color: #45a049;
+        transform: translateY(-1px);
+      }
+      .errorlist {
+        color: #f44336;
+        list-style-type: none;
+        padding: 0;
+        margin-top: -10px;
+        margin-bottom: 15px;
+        font-size: 0.9em;
+        font-weight: bold;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 25px;
+        color: #ff8c00;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1em;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 2em;
+        }
+        .main-content {
+          padding: 20px 15px;
+        }
+        button[type="submit"] {
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-content">
+      <h1>Adicionar Novo Produto</h1>
+
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="form-field">
+          <label for="{{ form.nome.id_for_label }}">Nome do Produto:</label>
+          {{ form.nome }} {% if form.nome.errors %}
+          <ul class="errorlist">
+            {% for error in form.nome.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+
+        <div class="form-field">
+          <label for="{{ form.descricao.id_for_label }}">Descrição:</label>
+          {{ form.descricao }} {% if form.descricao.errors %}
+          <ul class="errorlist">
+            {% for error in form.descricao.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+
+        <div class="form-field">
+          <label for="{{ form.quantidade.id_for_label }}">Quantidade:</label>
+          {{ form.quantidade }} {% if form.quantidade.errors %}
+          <ul class="errorlist">
+            {% for error in form.quantidade.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+
+        <div class="form-field">
+          <label for="{{ form.preco.id_for_label }}">Preço:</label>
+          {{ form.preco }} {% if form.preco.errors %}
+          <ul class="errorlist">
+            {% for error in form.preco.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+
+        <button type="submit">Salvar Produto</button>
+      </form>
+
+      <a href="{% url 'lista_produtos' %}" class="back-link"
+        >Voltar para a Lista de Produtos</a
+      >
+    </div>
+  </body>
+</html>

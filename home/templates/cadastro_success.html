@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Realizado!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+        }
+        .main-content {
+            background-color: #333;
+            padding: 50px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            max-width: 700px;
+            width: 90%;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #4CAF50;
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            color: #ff8c00;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+        p {
+            color: #ccc;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .main-button {
+            display: inline-block;
+            background-color: #ff8c00;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.8em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            margin-top: 20px;
+        }
+        .main-button:hover {
+            background-color: #e07b00;
+            transform: translateY(-2px);
+        }
+        .logout-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.1em;
+        }
+        .logout-link a {
+            color: #ff8c00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .logout-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    {% if usuario %}
+        <div class="logout-link">
+            <a href="{% url 'logout' %}">Sair ({{ usuario.nome }})</a>
+        </div>
+    {% endif %}
+
+    <div class="main-content">
+        {% if usuario and empresa %}
+            <h1>Bem-vindo à {{ empresa.nome }}, {{ usuario.nome }}!</h1>
+            <h2>Sua jornada no CONTROLSTOQUE começou!</h2>
+            <p>O painel de controle está esperando por você. Gerencie seus produtos com total autonomia!</p>
+            <a href="{% url 'lista_produtos' %}" class="main-button">Ver Meus Produtos</a>
+        {% else %}
+            <h1>Cadastro Realizado!</h1>
+            <h2>Sua conta foi criada com sucesso.</h2>
+            <p>Faça login para começar a gerenciar seu estoque.</p>
+            <a href="{% url 'login' %}" class="main-button">Fazer Login</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adicionar Novo Usuário</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+      .main-content {
+        background-color: #333;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        width: 100%;
+        max-width: 500px;
+        text-align: left;
+      }
+      h1 {
+        color: #ff8c00;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      form {
+        margin-top: 20px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #f0f0f0;
+      }
+      input:not([type="checkbox"]),
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        border: 1px solid #555;
+        border-radius: 6px;
+        background-color: #444;
+        color: #f0f0f0;
+        font-size: 1em;
+      }
+      .errorlist {
+        color: #f44336;
+        list-style-type: none;
+        padding: 0;
+        margin: 5px 0 0;
+        font-weight: bold;
+      }
+      .form-group-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      input[type="checkbox"] {
+        width: auto;
+      }
+      button[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.1em;
+        width: 100%;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin-top: 10px;
+      }
+      button[type="submit"]:hover {
+        background-color: #45a049;
+        transform: translateY(-1px);
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 25px;
+        color: #ff8c00;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 2em;
+        }
+        .main-content {
+          padding: 20px 15px;
+        }
+        button[type="submit"] {
+          font-size: 1em;
+        }
+        body {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="main-content">
+      <h1>Adicionar Novo Usuário</h1>
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="{{ form.nome.id_for_label }}">Nome:</label>
+          {{ form.nome }} {{ form.nome.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.email.id_for_label }}">Email:</label>
+          {{ form.email }} {{ form.email.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.login.id_for_label }}">Login:</label>
+          {{ form.login }} {{ form.login.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.senha.id_for_label }}">Senha:</label>
+          {{ form.senha }} {{ form.senha.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.confirmar_senha.id_for_label }}"
+            >Confirmar Senha:</label
+          >
+          {{ form.confirmar_senha }} {{ form.confirmar_senha.errors }}
+        </div>
+
+        {% if form.is_admin %}
+        <div class="form-group form-group-checkbox">
+          {{ form.is_admin }}
+          <label for="{{ form.is_admin.id_for_label }}"
+            >{{ form.is_admin.label }}</label
+          >
+          {{ form.is_admin.errors }}
+        </div>
+        {% endif %}
+
+        <button type="submit">Salvar Usuário</button>
+      </form>
+
+      <a href="{% url 'lista_usuarios' %}" class="back-link"
+        >Voltar para a Lista de Usuários</a
+      >
+    </div>
+  </body>
+</html>
